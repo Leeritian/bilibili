@@ -1,0 +1,24 @@
+﻿{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}当前弹幕池密度分析{% endblock %}
+{% block script %}<style>#numAlert{display: none}</style><script>function checkForm(){		var vvv = document.getElementById('av1').value	if (!isNaN(vvv)){return true;}    else{document.getElementById("numAlert").style.display='block';return false;}}</script>{% endblock %}
+<body>
+{% block page_content %}
+
+<h1 style="padding-top: 50px"></h1>
+<div id="hint" style="margin: 0 auto; width:600px">
+<form action="bilibili" method="POST" onsubmit="return checkForm()" enctype="multipart/form-data">
+输入AV号: <input type="text" id = "av1" name="av"></input><br>
+<input type="submit"></input><br><div id="numAlert"><a>alert 必须是数字</a></div>
+</form>
+
+{% if av %}你想获取av号：{{ av }} 的弹幕， {% if error %}但是发生了一些错误.你所要查找的视频可能不存在{% endif %} 
+{% else %}<a>What you want?</a>{% endif %}
+</div>
+{% if content %}{% if image %}<div align="center"><img src='{{image}}'></div>{% endif %}
+<div id = "table-wrapper"style="margin: 0 auto; width:600px"><table class="table">	<caption>{{ title }}</caption>   <thead>      <tr>         <th>序号</th>         <th>时间</th>		 <th>数量</th>      </tr>   </thead>   {% for cont in content %}   <tbody>      <tr>         <td>{{cont[0]}}</td>         <td>{{cont[1]+'~~~'+cont[2]}}</td>		 <td>{{cont[3]}}</td>      </tr>	{% endfor %}   </tbody></table></div>{% endif %}
+</body>
+
+{% endblock %}
+{{ super() }}
