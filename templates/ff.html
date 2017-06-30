@@ -2,14 +2,63 @@
 <html>
 <head>
 	<meta charset="utf-8"> 
-	<title>Bootstrap 实例 - 基本的表格</title>
-	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
+    <title>Bootstrap 实例 - 默认的面板</title>
+	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style>
+#rank{
+  border-style: solid;
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+  border-color:gray;
+  margin-top:-1px;
+  height:100px;
+  overflow:hidden;
+}
+#Count{
+	overflow:hidden; 
+	white-space:nowrap;margin-top:5px;
+	font-size:2px;
+}
+	</style>
 </head>
 <body>
-<div align="center">
-<a href='http://i1.hdslb.com/bfs/archive/f5741fa9e1848f5587ca41b140314fbb74f82504.jpg'><img src='http://i1.hdslb.com/bfs/archive/f5741fa9e1848f5587ca41b140314fbb74f82504.jpg'</img></a>
+<div class="container" style="margin-top:50px;margin-left:20px">
+	<div class="col-md-3 col-md-offset-1">
+		<div id="rank">
+			<div class="col-sm-1">
+				<img src="http://imgs.aixifan.com/content/2017_06_27/1498583148.jpg" width=96 height=54 style="margin-top:10px;margin-bottom:10px;"></img>
+			</div>
+			<div class="col-sm-6 col-sm-offset-4" title="起小点你是谁？a a a a a 	"style="overflow:hidden; white-space:nowrap;margin-top:5px;">
+				<a>起小点你是谁？a a a a a </a>
+			</div>
+			<div class="col-sm-6 col-sm-offset-4" title="起小点"style="overflow:hidden; white-space:nowrap;margin-top:5px;">
+				up主：<a>起小点</a>
+			</div>
+			<div id="Count" class="col-sm-6 col-sm-offset-4" title="起小点"style="overflow:hidden; white-space:nowrap;margin-top:5px;">
+				播放数:{{}}  弹幕数:{{}}
+			</div>
+		</div>
+		<div id="rank">
+			<div class="col-sm-1">
+				<img src="http://imgs.aixifan.com/content/2017_06_27/1498583148.jpg" width=96 height=54 style="margin-top:10px;margin-bottom:10px;"></img>
+			</div>
+			<div class="col-sm-6 col-sm-offset-4" title="起小点你是谁？a a a a a 	"style="overflow:hidden; white-space:nowrap;margin-top:5px;">
+				<a>起小点你是谁？a a a a a </a>
+			</div>
+			<div class="col-sm-6 col-sm-offset-4" title="起小点"style="overflow:hidden; white-space:nowrap;margin-top:5px;">
+				up主：<a>起小点</a>
+			</div>
+			<div id="Count" class="col-sm-6 col-sm-offset-4" title="起小点"style="overflow:hidden; white-space:nowrap;margin-top:5px;">
+				播放数:{{}}  弹幕数:{{}}
+			</div>
+		</div>
+	</div>
 </div>
+
+
 </body>
 </html>

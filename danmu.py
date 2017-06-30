@@ -2,6 +2,12 @@
 # 个人练习用
 # 依赖弹幕分析 视频的精彩部分
 # 此版本暂不支持历史弹幕，及分P弹幕，分P弹幕的弹幕地址为CID+1
+# ranking
+#ajax地址get:https://www.bilibili.com/index/rank/rookie-0-0.json
+#ajax地址get:https://www.bilibili.com/index/rank/rookie-1-0.json
+#ajax地址get:https://www.bilibili.com/index/rank/rookie-2-0.json
+#ajax地址get:https://www.bilibili.com/index/rank/rookie-3-0.json
+
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -12,6 +18,8 @@ import logging
 
 av = 11181699
 av2=5283365
+
+
 def transTimeToString(n):
     hour=n/3600
     remain_minute=n%3600
@@ -50,18 +58,17 @@ class danmu_spider():
             logging.exception(e)
             return None
         return img
+
     def show_top(self,n=10,mode='web'):
         fenbu=[]
         for danmu in self.danmus[1:]:
             time = danmu[8:].split(',')[0]
 
-#            data = danmu.split('>')[1]
-            try:#删掉前20s的弹幕
+            try:
                 time=int((float(time))/10)
                 if time < 2:
                     continue
                 fenbu.append(float(time))
-#        fenbu.append((time,data))
             except Exception as e:
                 logging.exception(e)
                 pass
@@ -73,7 +80,7 @@ class danmu_spider():
         top_n = c.most_common(n)
         if mode == 'web':            
             results=[]
-            for enum,top in enumerate(top_n):                   #result= ['enumerate','time_start','time_end','danmu_count']
+            for enum,top in enumerate(top_n): #result= ['enumerate','time_start','time_end','danmu_count']
                 result=[(enum+1),transTimeToString(top[0]*10),transTimeToString((top[0]+1)*10),top[1]]
                 results.append(result)
             return results    
