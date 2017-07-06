@@ -28,10 +28,13 @@
           <ul class="nav navbar-nav">
             <li><a href="/">Home</a></li>
 			<li><a href="{{ url_for('.b_crawl') }}">Bili</a></li>
+			<li><a href="{{ url_for('.rank') }}">Rank</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
+{% block head %}
+{% endblock %}
 {% block script %}
 {% endblock %}
   <body>

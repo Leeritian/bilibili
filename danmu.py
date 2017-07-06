@@ -8,16 +8,14 @@
 #ajax地址get:https://www.bilibili.com/index/rank/rookie-2-0.json
 #ajax地址get:https://www.bilibili.com/index/rank/rookie-3-0.json
 
+#https://api.bilibili.com/archive_stat/stat?callback=jQuery172013511373787340042_1499097829747&aid=11792413&type=jsonp&_=1499097830407
+
 import requests
 from bs4 import BeautifulSoup
 import re
 from collections import Counter
-import numpy as np
-import matplotlib.pyplot as plt
-import logging
 
-av = 11181699
-av2=5283365
+import logging
 
 
 def transTimeToString(n):
@@ -33,6 +31,7 @@ class danmu_spider():
         
     aurl = 'http://www.bilibili.com/video/av'
     curl = 'http://comment.bilibili.com/%s.xml'
+    count_url='https://api.bilibili.com/archive_stat/stat?callback=jQuery172013511373787340042_1499097829747&aid=%s&type=jsonp&_=1499097830407'
     exist = False
              
     def __init__(self, av):
@@ -43,6 +42,9 @@ class danmu_spider():
         if self.soup.find_all(class_='player'):
             self.exist = True
             self.title = self.soup.find('h1').get_text()
+            self.author = self.soup.find_all('meta')[3]['content']
+
+            
             script=self.soup.find_all('script')[14]
             ppp=re.compile(r'cid=\d+')
             self.cid = re.search(ppp,script.text).group(0).split('=')[1]
@@ -50,7 +52,22 @@ class danmu_spider():
         else:
             return None
 
-
+    def getData(self):
+        r=requests.get(self.count_url%self.av)
+        raw_data=r.text.split(',')[2:]
+        datas={}
+        for d in raw_data:
+            name,data=d.split(':')
+            name=name.strip('"')
+            datas[name]=data
+        rank_data={}
+        rank_data['coverImg']=self.coverImg()
+        rank_data['title']=self.title
+        rank_data['author']=self.author
+        rank_data['playCount']=datas['view']
+        rank_data['danmuCount']=datas['danmaku']
+        return rank_data
+    
     def coverImg(self):
         try:
             img=self.soup.find('img',class_='cover_image').attrs['src']
@@ -91,7 +108,9 @@ class danmu_spider():
                 
                 string += ('%d---%d s have %d danmu <br>'%(top[0]*10,(top[0]+1)*10,top[1]))
             return string
-    
+'''
+import numpy as np
+import matplotlib.pyplot as plt
 #todo: 弹幕中抢第一的无意义弹幕占了重比例，所以要进行弹幕清洗
 def danmu_fenbu_show(danmu):
     fenbu=[]
@@ -107,3 +126,7 @@ def danmu_fenbu_show(danmu):
     plt.savefig(r'E:/flask/static/images/av.jpg')
     plt.show()
 ##
+'''
+if __name__ == '__main__':
+    bd=danmu_spider(11792413)
+    x=bd.getData()

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block head %}
+<head>
+	<meta charset="utf-8"> 
+    <title>Rank</title>
+	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style>
+#rank{
+  border-style: solid;
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+  border-color:gray;
+  margin-top:-1px;
+  height:100px;
+  overflow:hidden;
+}
+#rankCount{
+	overflow:hidden; 
+	white-space:nowrap;margin-top:5px;
+	font-size:2px;
+}
+#rankTitle{
+	overflow:hidden; 
+	white-space:nowrap;
+	margin-top:10px;
+}
+#rankUp{
+	overflow:hidden; 
+	white-space:nowrap;
+	margin-top:5px;
+}
+#rankCover{
+	margin-top:8px;
+	margin-bottom:10px;
+}
+	</style>
+</head>
+{% endblock %}
+
+{% block content %}
+<body>
+<div style="margin:100px">
+<form action="rank" method="POST" enctype="multipart/form-data">
+输入AV号: <input type="text" id = "av1" name="av"></input><br>
+<input type="submit"></input><br>
+</form>
+</div>
+	<div class="container" style="margin-top:50px;margin-left:20px">
+	{% if rank %}
+		<div class="col-md-8 col-md-offset-2">
+			<div id="rank">
+				<div id="rankCover" class="col-sm-1">
+					<img src="{{ rank['coverImg'] }}" width=144 height=81></img>
+				</div>
+				<div id="rankTitle" class="col-sm-6 col-sm-offset-4">
+					<a>{{ rank['title'] }}</a>
+				</div>
+				<div id="rankUp"class="col-sm-6 col-sm-offset-4" title="起小点">
+					up主：<a>{{ rank['author'] }}</a>
+				</div>
+				<div id="rankCount" class="col-sm-6 col-sm-offset-4" title="起小点"style="overflow:hidden; white-space:nowrap;margin-top:5px;">
+					播放数:{{ rank['playCount'] }}  弹幕数:{{ rank['danmuCount'] }}
+				</div>
+			</div>
+		</div>
+	{% endif %}
+	</div>
+</body>
+{% endblock %}
+
